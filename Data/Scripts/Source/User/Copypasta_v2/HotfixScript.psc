@@ -1,8 +1,16 @@
 ScriptName Copypasta_v2:HotfixScript Hidden
 
-Function RestorePlayerActivation() Global
+;##### Don't remove, safety function #####
+bool Function DoNothing() Global
+	; empty
+	return true
+EndFunction
+;#########################################
+
+
+bool Function RestorePlayerActivation() Global
 	; Airplane seat form
-	Form seat = Game.GetFormFromFile(0x149E92,"Fallout4.esm")
+	Form seat = Game.GetFormFromFile(0x149E92, "Fallout4.esm")
 	
 	ObjectReference  playerRef = Game.GetPlayer()
 	Actor aPlayerRef = playerRef as Actor
@@ -17,4 +25,5 @@ Function RestorePlayerActivation() Global
 	seatRef.Disable()
 	Utility.Wait(1.0)
 	seatRef.Delete()
+	return true
 EndFunction
