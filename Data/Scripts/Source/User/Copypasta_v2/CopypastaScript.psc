@@ -143,9 +143,6 @@ Function PrepareWorkshopMode(bool abOpening = true)
 		UnregisterForRemoteEvent(WorkshopRef, "OnWorkshopObjectPlaced")
 		UnregisterForAnimationEvent(playerRef, "JumpUp")
 		UnregisterForMenuOpenCloseEvent("PauseMenu")
-		Actor aPlayerRef = Game.GetPlayer() as Actor
-		;aPlayerRef.ClearLookAt()
-		aPlayerRef.SetPlayerControls(true)
 		ClearSelection()
 		isInWorkshopMode = false
 		hasBeenPaused = false
@@ -417,7 +414,7 @@ Function OnPaused()
 			EndIf
 		Else
 			If (waitingForGroupSelect)
-				AddGroupSelectionToSelection()
+				; AddGroupSelectionToSelection()
 				; AddGroupSelectionToSelection2()
 			EndIf
 		EndIf
@@ -468,9 +465,6 @@ EndState
 
 
 Event OnWorkshopObjectMoved(ObjectReference akReference)
-	Actor aPlayerRef = Game.GetPlayer() as Actor
-	aPlayerRef.ClearLookAt()
-	aPlayerRef.SetPlayerControls(true)
 	If (myLayer != None)
 		myLayer.Delete()
 		myLayer = None
@@ -1017,6 +1011,8 @@ Function AddGroupSelectionToSelection()
 	ObjectReference initLookMarker = PlaceAtMe(Copypasta_DummyLookAtMarker)
 	ObjectReference turnLookMarker = PlaceAtMe(Copypasta_DummyLookAtMarker)
 	
+	; TODO: This breaks player Activation of stuff when set to true.
+	;		Make an implementation of moving the player with either TranslateTo or SnapIntoInteraction
 	aPlayerRef.SetPlayerControls(false)
 	float afZ = aPlayerRef.GetAngleZ()
 	initLookMarker.MoveTo(aPlayerRef, Math.Sin(afZ) * afMarkerDistance, Math.Cos(afZ) * afMarkerDistance, 70.0)
@@ -1370,9 +1366,6 @@ EndEvent
 Event OnWorkshopObjectDestroyed(ObjectReference akReference)
 	; Do clean-up, do same as OnUnload
 	TraceSelf(self, "OnWorkshopObjectDestroyed", "Calling OnUnload")
-	Actor aPlayerRef = Game.GetPlayer() as Actor
-	aPlayerRef.ClearLookAt()
-	;aPlayerRef.SetPlayerControls(true)
 	ObjectReference[] refsToReset = akReference.GetRefsLinkedToMe(WorkshopItemKeyword)
 	int i = 0
 	While (i < refsToReset.Length)
