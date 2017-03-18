@@ -10,6 +10,14 @@ for /F "usebackq tokens=3*" %%A IN (`reg query "%KEY_NAME%" /v "%VALUE_NAME%" 2^
 	set dataPath=%%B\Data
 )
 
+REM Format Paths to not have a '\' at the end
+if "%gitPath:~-1%"=="\" (
+	set gitPath=%gitPath:~0,-1%
+)
+if "%dataPath:~-1%"=="\" (
+	set dataPath=%dataPath:~0,-1%
+)
+
 if defined dataPath (
 	@echo off
 	xcopy "%gitPath%" "%dataPath%" /D /-Y /S
