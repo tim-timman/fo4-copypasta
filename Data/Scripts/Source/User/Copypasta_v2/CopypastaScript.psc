@@ -151,6 +151,8 @@ Function PrepareWorkshopMode(bool abOpening = true)
 		isSelectionFrozen = false
 		isCopiedSelection = false
 		waitingForGroupSelect = false
+		SetLinkedRef(WorkshopRef, WorkshopItemKeyword)
+		Enable()
 	EndIf
 EndFunction
 
@@ -1459,6 +1461,7 @@ EndEvent
 
 Event ObjectReference.OnWorkshopObjectGrabbed(ObjectReference akSender, ObjectReference akReference)
 	If (!Copypasta_CannotSelectList.HasForm(akReference.GetBaseObject()))
+		Enable()
 		TraceSelf(self, "ObjectReference.OnWorkshopObjectGrabbed", akReference)
 		CurrentObject = akReference
 		RegisterForRemoteEvent(akSender, "OnWorkshopObjectDestroyed")

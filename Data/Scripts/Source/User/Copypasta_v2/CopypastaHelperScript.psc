@@ -17,10 +17,11 @@ EndFunction
 Copypasta_v2:CopypastaScript Function GetCopypasta()
 	ObjectReference[] copypastaLink = GetRefsLinkedToMe(Copypasta_HelperLink)
 	If (copypastaLink.Length > 0)
-		copypastaLink[0].MoveTo(self, afZOffset = -56.0)
-		copypastaLink[0].Disable()
-		copypastaLink[0].Enable()
-		return copypastaLink[0] as Copypasta_v2:CopypastaScript
+		Copypasta_v2:CopypastaScript copypasta = copypastaLink[0] as Copypasta_v2:CopypastaScript
+		copypasta.MoveTo(self, afZOffset = -56.0)
+		copypasta.Disable()
+		copypasta.Enable()
+		return copypasta
 	Else
 		return None
 	EndIf
