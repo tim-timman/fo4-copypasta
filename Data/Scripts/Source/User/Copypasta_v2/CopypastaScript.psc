@@ -568,15 +568,19 @@ EndFunction
 Function QuickGrabSelection()
 	TraceSelf(self, "QuickGrabSelection", "")
 	ObjectReference[] selection = GetSelection()
-	If (selection.Length <  1)
+	If (selection.Length < 1)
 		return
 	EndIf
 	ObjectReference carrier = GetCarrier()
+	; If (carrier.IsDisabled())
+		; carrier.Enable()
+		; carrier.WaitFor3DLoad()
+	; EndIf
 	int i = 0
 	While (i < selection.Length)
 		ObjectReference tmp = selection[i]
 		Form tmpBase = tmp.GetBaseObject()
-		If (tmpBase as MovableStatic == None || tmpBase as Static || tmpBase as Furniture || tmpBase as Door || tmpBase as Activator || tmpBase as Light || tmpBase as Container || tmpBase as Flora || tmpBase as Terminal)
+		If (tmpBase as MovableStatic == None && (tmpBase as Static || tmpBase as Furniture || tmpBase as Door || tmpBase as Activator || tmpBase as Light || tmpBase as Container || tmpBase as Flora || tmpBase as Terminal))
 			; nothing
 		Else
 			tmp.SetMotionType(2)
@@ -1171,10 +1175,13 @@ Function DeleteCarrier()
 EndFunction
 
 ObjectReference Function GetCarrier()
-	If (GetLinkedRef(Copypasta_CarrierLink) == None)
-		Return NewCarrier()
+	ObjectReference carrier = GetLinkedRef(Copypasta_CarrierLink)
+	If (carrier == None)
+		carrier = NewCarrier()
 	EndIf
-	Return GetLinkedRef(Copypasta_CarrierLink)
+	carrier.Enable()
+	carrier.WaitFor3DLoad()
+	Return carrier
 EndFunction
 
 ObjectReference Function NewCarrier()
@@ -1182,7 +1189,7 @@ ObjectReference Function NewCarrier()
 	DeleteCarrier()
 	ObjectReference	carrier = PlaceAtMe(Copypasta_Carrier, abInitiallyDisabled = true) ;PlaceAtNode("CarrierSpawnNode", Copypasta_Carrier, abInitiallyDisabled = true)
 	carrier.SetScale(0.3) ; carrier.SetScale(0.1)
-	carrier.EnableNoWait()
+	carrier.Enable()
 	Self.SetLinkedRef(carrier, Copypasta_CarrierLink)
 	carrier.WaitFor3DLoad()
 	return carrier
@@ -1358,7 +1365,7 @@ Event OnWorkshopObjectPlaced(ObjectReference akReference)
 	useQuickCopy = ShouldStartUseQuickCopy
 	isInWorkshopMode = true
 	isInitialized = true
-	InitGroupSelection()
+	; InitGroupSelection()
 	OnLoad()
 	If (listenForSelections)
 		PrepareWorkshopMode(true)
