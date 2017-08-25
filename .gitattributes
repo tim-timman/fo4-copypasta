@@ -19,3 +19,5 @@
 # Fallout 4 plugin/master files
 *.esp	  diff=esxdump
 *.esm	  diff=esxdump
+# Fallout 4 compiled scripts
+*.pex	  binary
