@@ -46,6 +46,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Emacs temporary files
+*~
+.#*
+
 # =========================
 # Project specific files
 # =========================

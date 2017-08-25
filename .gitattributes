@@ -15,3 +15,7 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Fallout 4 plugin/master files
+*.esp	  diff=esxdump
+*.esm	  diff=esxdump
