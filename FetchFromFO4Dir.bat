@@ -24,7 +24,8 @@ if defined dataPath (
 	xcopy "%dataPath%\Textures\Copypasta" "%gitPath%\Textures\Copypasta" /DYS
 	xcopy "%dataPath%\Scripts\Copypasta_v2" "%gitPath%\Scripts\Copypasta_v2" /DYS
 	xcopy "%dataPath%\Scripts\Source\User\Copypasta_v2" "%gitPath%\Scripts\Source\User\Copypasta_v2" /DYS
-	xcopy "%dataPath%\Copypasta.esp" "%gitPath%\Copypasta.esp" /DY
+	echo F | xcopy "%dataPath%\Copypasta.esp" "%gitPath%\Copypasta.esp" /DY
+	echo F | xcopy "%dataPath%\IPA.esp" "%gitPath%\IPA.esp" /DY
 ) else (
 	@echo off
 	echo Installation Path not found.
