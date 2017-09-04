@@ -1,0 +1,16 @@
+[
+	"Data\\SCRIPTS\\Copypasta_v2\\HotfixerObjectScript.pex",
+	"Data\\Meshes\\Copypasta\\CopypastaPost.nif",
+	"Data\\SCRIPTS\\Copypasta_v2\\CopypastaScript.pex",
+	"Data\\SCRIPTS\\Copypasta_v2\\ImmediatePAScript.pex",
+	"Data\\Meshes\\Copypasta\\Copypasta_Helper.nif",
+	"Data\\SCRIPTS\\Copypasta_v2\\CopypastaHelperScript.pex",
+	"Data\\SCRIPTS\\Copypasta_v2\\DevModeTogglerScript.pex",
+	"Data\\Meshes\\Copypasta\\Copypasta_DummyHelper.nif",
+	"Data\\Meshes\\Copypasta\\Copypasta_Highlighter.nif",
+	"Data\\Textures\\Copypasta\\StripedHighlight_d.DDS",
+	"Data\\Meshes\\Copypasta\\Copypasta_Carrier.nif",
+	"Data\\Scripts\\Copypasta_v2\\AddBuildableAssetScript.pex",
+	"Data\\Scripts\\Copypasta_v2\\CopypastaExtensionFunctions.pex",
+	"Data\\Scripts\\Copypasta_v2\\HotfixScript.pex"
+]
