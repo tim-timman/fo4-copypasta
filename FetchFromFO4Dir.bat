@@ -4,35 +4,31 @@ echo Fetches any newer Copypasta related files from the Data directory
 setlocal ENABLEEXTENSIONS
 set KEY_NAME=HKLM\Software\WOW6432Node\Bethesda Softworks\Fallout4
 set VALUE_NAME=Installed Path
-set gitPath=%~dp0Data
+set repoPath=%~dp0Data
 
-for /F "usebackq tokens=3*" %%A IN (`reg query "%KEY_NAME%" /v "%VALUE_NAME%" 2^>nul ^| find "%VALUE_NAME%"`) do (
-	set dataPath=%%B\Data
+for /F "usebackq tokens=3*" %%a in (`reg query "%KEY_NAME%" /v "%VALUE_NAME%" 2^>nul ^| find "%VALUE_NAME%"`) do (
+  set dataPath=%%b\Data
 )
 
 REM Format Paths to not have a '\' at the end
-if "%gitPath:~-1%"=="\" (
-	set gitPath=%gitPath:~0,-1%
+if "%repoPath:~-1%"=="\" (
+  set repoPath=%repoPath:~0,-1%
 )
 if "%dataPath:~-1%"=="\" (
-	set dataPath=%dataPath:~0,-1%
+  set dataPath=%dataPath:~0,-1%
 )
 
 if defined dataPath (
-	@echo off
-	xcopy "%dataPath%\meshes\Copypasta" "%gitPath%\meshes\Copypasta" /DYS
-	xcopy "%dataPath%\Textures\Copypasta" "%gitPath%\Textures\Copypasta" /DYS
-	xcopy "%dataPath%\Scripts\Copypasta_v2" "%gitPath%\Scripts\Copypasta_v2" /DYS
-	xcopy "%dataPath%\Scripts\Source\User\Copypasta_v2" "%gitPath%\Scripts\Source\User\Copypasta_v2" /DYS
-	echo F | xcopy "%dataPath%\Copypasta.esp" "%gitPath%\Copypasta.esp" /DY
-	echo F | xcopy "%dataPath%\Copypasta - Textures.BA2" "%gitPath%\Copypasta - Textures.BA2" /DY
-	echo F | xcopy "%dataPath%\Copypasta - Main.BA2" "%gitPath%\Copypasta - Main.BA2" /DY
-	echo F | xcopy "%dataPath%\Copypasta.achlist" "%gitPath%\Copypasta.achlist" /DY
-	echo F | xcopy "%dataPath%\IPA.esp" "%gitPath%\IPA.esp" /DY
-	echo F | xcopy "%dataPath%\IPA - Main.BA2" "%gitPath%\IPA - Main.BA2" /DY
-	echo F | xcopy "%dataPath%\IPA.achlist" "%gitPath%\IPA.achlist" /DY
+  @echo off
+  for /F "usebackq delims=" %%b in (files.txt) do (
+    if "%%~xb"=="" (
+      echo D | xcopy "%dataPath%\%%~b." "%repoPath%\%%~b" /C /D /S /I /Y
+    ) else (
+      echo F | xcopy "%dataPath%\%%~b" "%repoPath%\%%~b" /C /D /S /I /Y
+    )
+  )
 ) else (
-	@echo off
-	echo Installation Path not found.
+  @echo off
+  echo Installation Path not found.
 )
 pause
