@@ -2,4 +2,5 @@ Copypasta.esp
 Copypasta.achlist
 Copypasta - Main.ba2
 Scripts\Copypasta\
+Scripts\Source\User\Copypasta.ppj
 Scripts\Source\User\Copypasta\

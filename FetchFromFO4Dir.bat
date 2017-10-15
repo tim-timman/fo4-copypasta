@@ -17,18 +17,16 @@ if "%repoPath:~-1%"=="\" (
 if "%dataPath:~-1%"=="\" (
   set dataPath=%dataPath:~0,-1%
 )
+if not defined dataPath (
+   echo Installation path not found.
+   goto :eof
+)
 
-if defined dataPath (
-  @echo off
-  for /F "usebackq delims=" %%b in (files.txt) do (
-    if "%%~xb"=="" (
-      echo D | xcopy "%dataPath%\%%~b." "%repoPath%\%%~b" /C /D /S /I /Y
-    ) else (
-      echo F | xcopy "%dataPath%\%%~b" "%repoPath%\%%~b" /C /D /S /I /Y
-    )
+for /F "usebackq delims=" %%b in (files.txt) do (
+  if "%%~xb"=="" (
+    echo D | xcopy "%dataPath%\%%~b." "%repoPath%\%%~b" /C /D /S /I /Y
+  ) else (
+    echo F | xcopy "%dataPath%\%%~b" "%repoPath%\%%~b" /C /D /S /I /Y
   )
-) else (
-  @echo off
-  echo Installation Path not found.
 )
 pause
